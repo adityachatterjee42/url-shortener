@@ -25,6 +25,7 @@ app.post('/new', function(req, res){
     }
 });
 
+
 app.use('/:id', getURL);
 
 function getURL(req, res){
