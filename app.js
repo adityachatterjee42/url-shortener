@@ -2,13 +2,15 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
-var counter=0;
-var urls={};
-var ids={};
+
+
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var counter=0;
+var urls={};
+var ids={};
 
 app.post('/new', function(req, res){
     var url = req.body.url;
@@ -29,7 +31,6 @@ function getURL(req, res){
     //console.log(req);
     return res.json({'url':ids[req.params.id]});
 };
-
 
 app.use('/', serveIndex);
 

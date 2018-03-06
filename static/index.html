@@ -33,6 +33,12 @@
                     <button class="btn btn-secondary" type="button" onClick=shortenAJAX()>Shorten</button>
                 </span>
               </div>
+              <div class="input-group">
+                <input type="text" class="form-control" disabled="disabled" id="output" placeholder="">
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button" onclick="copyURL()" data-toggle="popover" data-content="Copied to clipboard!">Copy <span class="glyphicon glyphicon-file"></span></button>
+                </span>
+              </div>
             </div>
           </div>
           <br>
@@ -43,13 +49,23 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
         <script src="js/main.js"></script>
         <script>
+          $(function () {
+            $('[data-toggle="popover"]').popover();
+          });
           function shortenAJAX(){
             var url = $('#urlTextbox').val();
             $.post("/new", {'url':url}, function(result){
               console.log(result);
+              $('#output').val(window.location.href+result.id);
+              $('#output').removeAttr("disabled");
             });
+          }
+          function copyURL(){
+            $('#output').select();
+            document.execCommand('copy');
           }
         </script>
     </body>
